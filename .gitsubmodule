@@ -1,0 +1,3 @@
+[submodule "Gynopticon"]
+    path = res/Gynopticon
+    url = https://github.com/gangjeuk/Gynopticon
