@@ -67,22 +67,12 @@ Since, experiments using Vega are based on the results of Gynopticon, so follow 
 You can reproduce the results of experiemtns with following commands.
 
 ```
-# N vs N games
-$ python3 eval/moba.py
-
-# 1 vs 1 games
-$ python3 eval/action.py
+$ python3 main.py
 ```
 
 If you want to conduct experiments on different condition, you have to change a seed number. For that you have to edit seed numbers in `/utils/__init__.py`, `/res/Gynopticon`. The files contain seed numbers for *Vega (this project)*, *Gynopticon (our cheating detection system)* each.
 
-## Figures
 
-If you want to generate figures for the results of experiments, you can simply reproduce it with following command.
-
-```
-$ python3 plot.py
-```
 
 # Citation
 WIP
