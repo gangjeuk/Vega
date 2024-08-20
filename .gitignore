@@ -15,7 +15,8 @@ __pycache__/
 env/
 
 # Data
-data/
+data/match
+data/bot
 
 # Glomatch
 unsample.pickle

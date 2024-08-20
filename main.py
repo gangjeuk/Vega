@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import pickle
 
-from ContationDataset.data import botlist, friend, bot_usage_days, user_used_bot
-from ContationDataset.data import START_DAY, END_DAY, ONE_DAY
+from data.bot.data import botlist, friend, bot_usage_days, user_used_bot
+from data.bot.data import START_DAY, END_DAY, ONE_DAY
 import utils
 from eval.match import Env
 from res.GloMatch.config import MODEL_CONFIG
@@ -33,7 +33,7 @@ user = user.fillna(0)
 user['target_match_count'] = target_match_count
 user['played_match'] = 0
 if debug_mode:
-    user = user[:1000]
+    user = user[:10000]
 
 # Configuration
 conf = dict()
@@ -56,8 +56,8 @@ def moba_policy(user, team_draft, **kwargs):
     cheater_user = user.loc[(user.index.isin(team_draft) & user.used_bot.eq(True))]
 
     if kwargs['with_liar'] is True:
-        benign_picked = pd.DataFrame(random.sample(utils.res['without_liar']['dub_val_norm'], len(benign_user)), columns=['dub', 'val'])
-        cheater_picked = pd.DataFrame(random.sample(utils.res['without_liar']['dub_val_cheat'], len(cheater_user)), columns=['dub', 'val'])
+        benign_picked = pd.DataFrame(random.sample(utils.res['with_liar']['dub_val_norm'], len(benign_user)), columns=['dub', 'val'])
+        cheater_picked = pd.DataFrame(random.sample(utils.res['with_liar']['dub_val_cheat'], len(cheater_user)), columns=['dub', 'val'])
     else:
         benign_picked = pd.DataFrame(random.sample(utils.res['without_liar']['dub_val_norm'], len(benign_user)), columns=['dub', 'val'])
         cheater_picked = pd.DataFrame(random.sample(utils.res['without_liar']['dub_val_cheat'], len(cheater_user)), columns=['dub', 'val'])
@@ -80,11 +80,11 @@ def action_policy(user, team_draft, **kwargs):
     user.loc[((user.index.isin(team_draft)), 'played_match')] += 1
     benign_user = user.loc[(user.index.isin(team_draft) & user.used_bot.eq(False))]
     cheater_user = user.loc[(user.index.isin(team_draft) & user.used_bot.eq(True))]    
-    
+    vote_cnt = np.random.choice([i for i in range(6)])
     if kwargs['with_liar'] is True:          
-        benign, cheater, _ = simulate_with_liar(1,3,0.8,len(benign_user), len(cheater_user))
+        benign, cheater, _ = simulate_with_liar(1,vote_cnt,0.8,len(benign_user), len(cheater_user))
     else:
-        benign, cheater, _ = simulate_without_liar(1,3,0.8,len(benign_user), len(cheater_user))
+        benign, cheater, _ = simulate_without_liar(1,vote_cnt,0.8,len(benign_user), len(cheater_user))
     benign_picked = pd.DataFrame(benign.values(), columns=['dub', 'val'])
     cheater_picked = pd.DataFrame(cheater.values(), columns=['dub', 'val'])
 
@@ -167,5 +167,6 @@ if __name__ == '__main__':
     action_user_without_liar = simulate_action(START_DAY, START_DAY + ONE_DAY, action_user_without_liar, with_liar=False)
     moba_user_without_liar = simulate_moba(START_DAY, START_DAY + ONE_DAY, moba_user_without_liar, with_liar=False)
     
-    plot.figure1(moba_user_without_liar, moba_user_with_liar)
     plot.figure2(action_user_without_liar, action_user_with_liar)
+    plot.figure1(moba_user_without_liar, moba_user_with_liar, action_user_without_liar, action_user_with_liar)
+    

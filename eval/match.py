@@ -138,12 +138,13 @@ class Env(gym.Env):
 
     def upsample(self, data, target_n):
         sample_loaded = False
+        dir_name = f'data/match/upsample-{target_n}.pickle'
         print("start up sampling")
         if len(data) > target_n or (len(data) * (len(data) - 1)) < target_n:
             return None
         
         try:
-            ret = pickle.load(open(os.path.join('data/match', "upsample.pickle"),'rb'))
+            ret = pickle.load(open(dir_name,'rb'))
             return ret
         except:
             sample_loaded = False
@@ -163,7 +164,7 @@ class Env(gym.Env):
         
         print("up sampling finished")
         print("Save pickle")
-        pickle.dump(ret, open(os.path.join('data/match', "upsample.pickle"),'wb'))
+        pickle.dump(ret, open(dir_name,'wb'))
         return ret
             
     def _reward(self, team, team_draft):
