@@ -238,7 +238,8 @@ def figure1(moba_without_liar, moba_with_liar, action_without_liar, action_with_
 
     axs[0, 0].set_title('(1) Without liar', fontdict={'fontsize': 'x-large'})
     axs[0, 1].set_title('(2) With Liar', fontdict={'fontsize': 'x-large'})
-    
+    axs[0, 0].set_ylim(-0.5, 16.5)
+    axs[0, 1].set_ylim(-0.5, 16.5)
     plt.suptitle('(a) Sum of the dubious and validity scores - Game1 (N vs N)', fontsize='xx-large', fontweight='bold')
 
     plot_score_sum(axs[1, 0], action_without_liar, 'lower right')
@@ -246,6 +247,8 @@ def figure1(moba_without_liar, moba_with_liar, action_without_liar, action_with_
     axs[1, 0].set_title('(1) Without liar', fontdict={'fontsize': 'x-large'})
     axs[1, 1].set_title('(2) With liar', fontdict={'fontsize': 'x-large'})
     plt.figtext(0.5, 0.485, "(b) Sum of the dubious and validity scores - Game2 (1 vs 1)", ha='center', va='center', fontdict={'fontsize': 'xx-large', 'fontweight': 'bold'})
+    axs[1, 0].set_ylim(-20, 20)
+    axs[1, 1].set_ylim(-20, 20)
 
       
     fig.set_figwidth(10)
