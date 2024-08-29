@@ -247,8 +247,8 @@ def figure1(moba_without_liar, moba_with_liar, action_without_liar, action_with_
     axs[1, 0].set_title('(1) Without liar', fontdict={'fontsize': 'x-large'})
     axs[1, 1].set_title('(2) With liar', fontdict={'fontsize': 'x-large'})
     plt.figtext(0.5, 0.485, "(b) Sum of the dubious and validity scores - Game2 (1 vs 1)", ha='center', va='center', fontdict={'fontsize': 'xx-large', 'fontweight': 'bold'})
-    axs[1, 0].set_ylim(-20, 20)
-    axs[1, 1].set_ylim(-20, 20)
+    axs[1, 0].set_ylim(-20.5, 20.5)
+    axs[1, 1].set_ylim(-20.5, 20.5)
 
       
     fig.set_figwidth(10)
@@ -267,7 +267,7 @@ def figure2(user_without_liar, user_with_liar):
     axs[0].set_title('(1) Without liar')
     axs[1].set_title('(2) With liar')
     
-    plt.suptitle('Number of matches ended up with certain condition', x=0.5, y=1.0, fontweight='bold')
+    plt.suptitle('Number of matches ended up with certain condition', x=0.5, y=1.05,fontsize='xx-large', fontweight='bold')
     # Adjust vertical_spacing = 0.5 * axes_height
     #plt.subplots_adjust(wspace=0.4, hspace=1)
 
